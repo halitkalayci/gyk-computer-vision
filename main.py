@@ -12,10 +12,10 @@ img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-print(type(img_rgb))
-print(img_rgb)
-print(img_rgb.ndim)
-print(img_rgb.shape)
+print(type(img_gray))
+print(img_gray)
+print(img_gray.ndim)
+print(img_gray.shape)
 
 plt.imshow(img_gray, cmap="gray")
 plt.axis('off')
