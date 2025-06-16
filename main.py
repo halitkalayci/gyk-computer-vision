@@ -1,5 +1,5 @@
 import cv2 #opencv-python wrapper
-
+import numpy as np
 
 # RGB
 # BGR
@@ -31,10 +31,37 @@ blurred_img = cv2.GaussianBlur(img, (15,15), 0)
 # Gürültü Temizleme
 _, thresholded_img = cv2.threshold(grayscale, 127, 255, cv2.THRESH_BINARY) # 127 => Eşik değeri, 255 => Maksimum değer, cv2.THRESH_BINARY => Binary eşikleme
 
+# Canny Edge Detection (Kenar tespiti)
+edges = cv2.Canny(thresholded_img, 100, 200)
 
+# Bireysel ödev => Seçtiğiniz herhangi bir görüntüde seçtiğiniz
+# bir objeyi kenarları düzgünce çizilecek şekilde çiziniz.
 
+# Morfolojik işlemler ve segmentasyon.
+
+# Erosion ve Dilation => Aşındırma ve Genişletme
+# Erosion => Beyaz bölgeleri küçültür, gürültüyü temizler.
+# Dilation => Beyaz bölgeleri büyütür, boşlukları doldurur. 
+
+kernel = np.ones((3,3), np.uint8)
+
+erosion = cv2.erode(thresholded_img, kernel, iterations=1)
+
+dilation = cv2.dilate(thresholded_img, kernel, iterations=1)
+
+# Opening => Erosion sonrası dilation işlemi. (Kağıttaki leke örneği => Küçük noktaları temizler, yazıyı bozmadan gürültüyü azaltır.)
+
+# Closingg => Dilation sonrası erosion işlemi.
 
 #Boilerplate Kod => Basmakalıp kod
-cv2.imshow('Kedi', thresholded_img)
+cv2.imshow('Kedi - Threshold', thresholded_img)
+cv2.imshow('Kedi - Erosion', erosion)
+cv2.imshow('Kedi - Dilation', dilation)
 cv2.waitKey(0)
 cv2.destroyAllWindows() # Bir tuşa basılana kadar imageı göster.
+
+
+# Kontur Bulma
+# Connected Components (Bağlı Bileşenler)
+# Watershed Segmentasyonu
+# GrabCut Segmentasyonu
