@@ -50,18 +50,46 @@ erosion = cv2.erode(thresholded_img, kernel, iterations=1)
 dilation = cv2.dilate(thresholded_img, kernel, iterations=1)
 
 # Opening => Erosion sonrası dilation işlemi. (Kağıttaki leke örneği => Küçük noktaları temizler, yazıyı bozmadan gürültüyü azaltır.)
+opening = cv2.morphologyEx(thresholded_img, cv2.MORPH_OPEN, kernel)
 
-# Closingg => Dilation sonrası erosion işlemi.
+# Closing => Dilation sonrası erosion işlemi. (Kağıttaki leke örneği => Küçük noktaları temizler, yazıyı bozmadan gürültüyü azaltır.)
+closing = cv2.morphologyEx(thresholded_img, cv2.MORPH_CLOSE, kernel)
 
-#Boilerplate Kod => Basmakalıp kod
-cv2.imshow('Kedi - Threshold', thresholded_img)
-cv2.imshow('Kedi - Erosion', erosion)
-cv2.imshow('Kedi - Dilation', dilation)
-cv2.waitKey(0)
-cv2.destroyAllWindows() # Bir tuşa basılana kadar imageı göster.
 
 
 # Kontur Bulma
+
+# Mode parametresi = cv2.RETR_TREE, cv2.RETR_EXTERNAL, cv2.RETR_CCOMP, cv2.RETR_LIST
+# Tree => Tüm konturları hiyerarşik olarak bulur. (iç içe nesnelerde çok kullanılır.)
+# External => Sadece dış konturları bulur. (sadece dış nesneyi bulmak için.)
+
+# CCOMP => İki seviyeli hiyerarşik konturları bulur. (daha nadir kullanılır.)
+# List => Tüm konturları bulur ama hiyerarşi bilgisi vermez. ()
+
+# Kontur noktaları nasıl belirlensin?
+# Method parametresi = cv2.CHAIN_APPROX_SIMPLE, cv2.CHAIN_APPROX_NONE, cv2.CHAIN_APPROX_TC89_KCOS, cv2.CHAIN_APPROX_TC89_L1
+# Simple => Kontur noktalarını en az sayıda nokta ile temsil etmeye çalışır. (en çok kullanılır.)
+# None => Tüm noktaları alır. (Çok yer kaplar.)
+# TC89_KCOS, L1 => Daha gelişmiş Douglas-Peucker algoritmaları.
+contours, _ = cv2.findContours(thresholded_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+
+print(f"Kontur sayısı: {len(contours)}")
+print(f"Konturler: {contours}")
+
+contour_img = img.copy()
+# -1 => Tüm konturları çiz., 0-1-2-3 vb => Belirtilen kontur numarasını (index) çiz.
+# 0,0,255 BGR => Kırmızı renk
+# 2 => Çizgi kalınlığı
+cv2.drawContours(contour_img, contours, -1, (0,0,255), 2)
+
 # Connected Components (Bağlı Bileşenler)
 # Watershed Segmentasyonu
 # GrabCut Segmentasyonu
+
+cv2.imshow('Kedi - Contours', contour_img)
+cv2.imshow('Kedi - Threshold', thresholded_img)
+cv2.imshow('Kedi - Opening', opening)
+cv2.imshow('Kedi - Closing', closing)
+cv2.waitKey(0)
+cv2.destroyAllWindows() # Bir tuşa basılana kadar imageı göster.
