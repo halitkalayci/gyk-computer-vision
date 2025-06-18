@@ -84,6 +84,10 @@ contour_img = img.copy()
 cv2.drawContours(contour_img, contours, -1, (0,0,255), 2)
 
 # Connected Components (Bağlı Bileşenler)
+num_labels, labels_img = cv2.connectedComponents(opening)
+
+print(f"Bağlı bileşen sayısı: {num_labels-1}")
+# 19.35
 # Watershed Segmentasyonu
 # GrabCut Segmentasyonu
 
