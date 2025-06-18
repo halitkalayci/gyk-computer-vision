@@ -136,18 +136,18 @@ cv2.grabCut(labeled_img, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_REC
 # ilk maskeyi sadeleştiriyoruz.
 mask2 = np.where((mask==2) | (mask==0), 0, 1).astype('uint8')
 result = img * mask2[:,:,np.newaxis]
-
 cv2.imshow('Kedi - GrabCut', result)
-
-
-
-
-
-
-
 cv2.imshow('Kedi - Contours', contour_img)
 cv2.imshow('Kedi - Threshold', thresholded_img)
 cv2.imshow('Kedi - Opening', opening)
 cv2.imshow('Kedi - Closing', closing)
 cv2.waitKey(0)
 cv2.destroyAllWindows() # Bir tuşa basılana kadar imageı göster.
+
+
+# Opsiyonel => Arayüz ile fotoğraf seçilen bir uygulama
+# Bir fotoğraf seçilecek,
+# seçilen fotoğraftaki arkaplan kaldırılıp (dekupe)
+# transparan haliyle .png olarak kaydedilecek.
+
+# Özellik Çıkarımı ve Nesne Tespiti
