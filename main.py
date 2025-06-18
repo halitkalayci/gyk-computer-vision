@@ -87,9 +87,33 @@ cv2.drawContours(contour_img, contours, -1, (0,0,255), 2)
 num_labels, labels_img = cv2.connectedComponents(opening)
 
 print(f"Bağlı bileşen sayısı: {num_labels-1}")
-# 19.35
-# Watershed Segmentasyonu
-# GrabCut Segmentasyonu
+print(labels_img)
+
+# Bağlı bileşenleri görselleştirme
+
+label_hue = np.uint8(179 * labels_img / (num_labels-1))
+
+# label 0 => hue = 0
+# label 1 => hue 60
+# label 2 => hue 120
+
+blank_ch = 255 * np.ones_like(label_hue)
+
+# 255 * => HSV renk uzayında 255 değeri en büyük değerdir. (HSV) Saturation-Value
+
+labeled_img = cv2.merge([label_hue, blank_ch, blank_ch])
+
+labeled_img = cv2.cvtColor(labeled_img, cv2.COLOR_HSV2BGR)
+labeled_img[labels_img == 0] = 0
+
+
+cv2.imshow('Kedi - Connected Components', labeled_img)
+
+
+# Watershed Segmentasyonu -> Farklı bir imagela yeni bir dosyada yapılacak.
+
+# GrabCut Segmentasyonu -> 
+
 
 cv2.imshow('Kedi - Contours', contour_img)
 cv2.imshow('Kedi - Threshold', thresholded_img)
