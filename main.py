@@ -113,15 +113,27 @@ cv2.imshow('Kedi - Connected Components', labeled_img)
 # Watershed Segmentasyonu -> Farklı bir imagela yeni bir dosyada yapılacak.
 
 # GrabCut Segmentasyonu -> 
+
+# Bir maske oluşturuyorum, resmin her bir pikseli için etiket tutacak.
 mask = np.zeros(img.shape[:2], dtype=np.uint8)
+
+# GrabCut için gerekli olan modeller.
 bgdModel = np.zeros((1,65), np.float64)
 fgdModel = np.zeros((1,65), np.float64)
+# 
+
 
 # Manuel Koordinat
-rect = (50,50,400,400)
-
+# x,y
+# width,height
+rect = (50,50,800,800)
+# 
+# bu imagedeki, bu maskeyi güncelleyerek, şu kareyi incele.
 cv2.grabCut(labeled_img, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
+# 5 => Iterasyon sayısı
 
+
+# ilk maskeyi sadeleştiriyoruz.
 mask2 = np.where((mask==2) | (mask==0), 0, 1).astype('uint8')
 result = img * mask2[:,:,np.newaxis]
 
