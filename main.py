@@ -113,6 +113,24 @@ cv2.imshow('Kedi - Connected Components', labeled_img)
 # Watershed Segmentasyonu -> Farklı bir imagela yeni bir dosyada yapılacak.
 
 # GrabCut Segmentasyonu -> 
+mask = np.zeros(img.shape[:2], dtype=np.uint8)
+bgdModel = np.zeros((1,65), np.float64)
+fgdModel = np.zeros((1,65), np.float64)
+
+# Manuel Koordinat
+rect = (50,50,400,400)
+
+cv2.grabCut(labeled_img, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
+
+mask2 = np.where((mask==2) | (mask==0), 0, 1).astype('uint8')
+result = img * mask2[:,:,np.newaxis]
+
+cv2.imshow('Kedi - GrabCut', result)
+
+
+
+
+
 
 
 cv2.imshow('Kedi - Contours', contour_img)
