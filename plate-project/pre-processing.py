@@ -7,8 +7,12 @@ LABEL_DIR = "data/labels"
 IMG_SIZE = 640
 
 X, y = [], []
-
+count = 0
 for filename in os.listdir(IMAGE_DIR):
+    if count > 100:
+        break
+    count += 1
+
     if not filename.endswith((".jpg",".png",".jpeg")):
         continue
 
@@ -54,7 +58,7 @@ for filename in os.listdir(IMAGE_DIR):
     # Veri setine ekle
     if labels:  # Eğer label varsa
         X.append(img_resized)
-        y.append(labels)
+        y.append(labels[0])
 
 X = np.array(X)
 y = np.array(y)
