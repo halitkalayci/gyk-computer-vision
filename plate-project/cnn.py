@@ -24,3 +24,7 @@ print(y.shape)
 
 # Sonraki derse tam kurulumlarla gelmek. Python 3.8-3.11 
 #Tensorflow kurulu.
+
+
+# NN => Neureal Network
+#ANN,CNN,RNN
