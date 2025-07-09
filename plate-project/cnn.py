@@ -51,8 +51,17 @@ model = tf.keras.models.Sequential([
 
     tf.keras.layers.Dense(4, activation="linear") # 4 nöronlu bir katman. Linear aktivasyon çünkü => Regresyon için.
 ])
-# 19:45 => modeli compile edip eğitelim.
 
 # 0-9 arası rakam
 # 50.000 kişini farklı çizimi var. => 
 # 1000 kişinin farklı çizimi var => 3 
+
+model.summary()
+
+# Regresyon metrikleri => MAE, MSE, RMSE
+model.compile(optimizer="adam", loss="mean_squared_error", metrics=["mae"])
+
+history = model.fit(X_train, y_train, epochs=10, validation_split=0.2, batch_size=8)
+
+model.save("plate_detection_cnn.h5")
+model.save("plate_detection_cnn.keras")

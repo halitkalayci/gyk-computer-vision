@@ -2,3 +2,12 @@ data
 data/*
 X.npy
 y.npy
+plate_detection_cnn.h5
+plate_detection_cnn.keras
+
+
+
+
+
+
+
