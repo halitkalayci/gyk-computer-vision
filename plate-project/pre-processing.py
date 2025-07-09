@@ -9,9 +9,9 @@ IMG_SIZE = 640
 X, y = [], []
 count = 0
 for filename in os.listdir(IMAGE_DIR):
-    if count > 100:
-        break
-    count += 1
+    #if count > 100:
+    #    break
+    #count += 1
 
     if not filename.endswith((".jpg",".png",".jpeg")):
         continue
