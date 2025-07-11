@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-model = tf.keras.models.load_model("plate_detection_cnn.h5")
+model = tf.keras.models.load_model("plate_detection_cnn.keras")
 
 import numpy as np
 
