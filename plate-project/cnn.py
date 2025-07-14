@@ -64,7 +64,7 @@ model.compile(optimizer="adam", loss="mean_squared_error", metrics=["mae"])
 # Early Stopping
 history = model.fit(X_train, y_train, epochs=10, validation_split=0.2, batch_size=8)
 
-model.save("plate_detection_cnn.h5")
+model.save("plate_detection_cnn.h5") # Eğitim sürecindeki checkpoint # Production-Ready Model değildir.
 model.save("plate_detection_cnn.keras")
 
 # IoU => Intersection over Union => Metrik

@@ -2,6 +2,10 @@ import cv2
 from matplotlib import pyplot as plt
 import albumentations as A
 import os 
+
+# ÖDEV:
+# Tüm veriyi augmente etmek için
+# gerekli döngüyü yazalım.
 image_path = "data/images/1.jpg"
 
 image = cv2.imread(image_path)
@@ -109,3 +113,10 @@ plt.show()
 
 # 1.jpg -> 1_blur.jpg 1_zoom.jpg 1_rotate.jpg 1_horizontal_flip.jpg 1_brightness.jpg 1_gauss_noise.jpg 1_cutout.jpg 1_motion_blur.jpg 1_median_blur.jpg
 # 1.txt -> 1_blur.txt 1_zoom.txt 1_rotate.txt 1_horizontal_flip.txt 1_brightness.txt 1_gauss_noise.txt 1_cutout.txt 1_motion_blur.txt 1_median_blur.txt
+
+
+# Flask ile web üzerinden bu modeli sunma
+# Modelin production-ready hale getirilmesi
+# (Webde sunma, Boyut küçültme, Güvenlik)
+
+# 20.35 -> Pairlerdeyiz.
