@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plaka Tahmini</title>
+</head>
+<body>
+    <h1> Görsel Gönder </h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit">Tahmin Et</button>
+    </form>
+    {% if result %}
+        <h1> Tahmin Sonucu: {{ result }}</h1>
+    {% endif %}
+</body>
+</html>
