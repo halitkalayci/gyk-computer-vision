@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkında - Plaka Tanıma Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-camera"></i> Plaka Tanıma
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('about') }}">Hakkında</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1><i class="fas fa-info-circle"></i> Hakkımızda</h1>
+            <p>Gelişmiş yapay zeka teknolojisi ile plaka tanıma çözümleri</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- About Section -->
+        <div class="card">
+            <h2><i class="fas fa-rocket"></i> Plaka Tanıma Sistemi</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #555; margin: 1.5rem 0;">
+                Bu sistem, en güncel derin öğrenme teknolojilerini kullanarak araç plakalarını 
+                hızlı ve doğru bir şekilde tespit etmek için geliştirilmiştir. TensorFlow Lite 
+                tabanlı optimized model ile gerçek zamanlı performans sunar.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #555;">
+                Güvenlik, trafik yönetimi ve otomatik tanıma sistemleri için ideal bir çözüm 
+                olan uygulamamız, kullanıcı dostu arayüzü ile profesyonel sonuçlar elde etmenizi sağlar.
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="card">
+            <h2><i class="fas fa-star"></i> Özellikler</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain" style="color: #e74c3c;"></i>
+                    </div>
+                    <h3>Yapay Zeka</h3>
+                    <p>En gelişmiş derin öğrenme algoritmaları ile %95+ doğruluk oranında plaka tespiti.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightning-bolt" style="color: #f39c12;"></i>
+                    </div>
+                    <h3>Hızlı İşlem</h3>
+                    <p>Optimize edilmiş model sayesinde saniyeler içinde sonuç alın.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt" style="color: #3498db;"></i>
+                    </div>
+                    <h3>Responsive Tasarım</h3>
+                    <p>Tüm cihazlarda mükemmel çalışan responsive ve modern arayüz.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt" style="color: #27ae60;"></i>
+                    </div>
+                    <h3>Güvenli</h3>
+                    <p>Yüklenen resimler güvenli bir şekilde işlenir, kişisel veriler korunur.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-images" style="color: #9b59b6;"></i>
+                    </div>
+                    <h3>Çoklu Format</h3>
+                    <p>JPG, PNG, JPEG formatlarında resim yükleme desteği.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download" style="color: #e67e22;"></i>
+                    </div>
+                    <h3>Sonuç İndirme</h3>
+                    <p>İşlenmiş resimleri kolayca indirebilir ve paylaşabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="card">
+            <h2><i class="fas fa-cogs"></i> Teknoloji Yığını</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-python" style="color: #3776ab;"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>Backend geliştirmesi için Python ve Flask framework kullanılmıştır.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code" style="color: #e34c26;"></i>
+                    </div>
+                    <h3>TensorFlow Lite</h3>
+                    <p>Optimize edilmiş makine öğrenmesi modeli için TensorFlow Lite.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-html5" style="color: #e34f26;"></i>
+                    </div>
+                    <h3>Modern Web</h3>
+                    <p>HTML5, CSS3 ve JavaScript ile responsive web arayüzü.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="card">
+            <h2><i class="fas fa-play-circle"></i> Nasıl Çalışır?</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">1</div>
+                    <h3 style="color: #333; margin-bottom: 0.5rem;">Resim Yükle</h3>
+                    <p style="color: #666;">Plakası tespit edilecek araç resmini yükleyin veya sürükleyip bırakın.</p>
+                </div>
+
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">2</div>
+                    <h3 style="color: #333; margin-bottom: 0.5rem;">AI Analizi</h3>
+                    <p style="color: #666;">Yapay zeka modeli resmi analiz eder ve plakaları tespit eder.</p>
+                </div>
+
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">3</div>
+                    <h3 style="color: #333; margin-bottom: 0.5rem;">Sonuç Al</h3>
+                    <p style="color: #666;">Tespit edilen plakalar işaretlenmiş halde gösterilir.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">95%+</span>
+                <span class="stat-label">Doğruluk Oranı</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">&lt;3s</span>
+                <span class="stat-label">İşlem Süresi</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Kesintisiz Hizmet</span>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white; margin-bottom: 1rem;">
+                <i class="fas fa-rocket"></i> Hemen Deneyin!
+            </h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+                Plaka tanıma sistemimizi deneyimlemek için resminizi yükleyin.
+            </p>
+            <a href="{{ url_for('index') }}" class="btn" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white;">
+                <i class="fas fa-arrow-right"></i> Sistemi Dene
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling animation
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.card, .stat-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html> 

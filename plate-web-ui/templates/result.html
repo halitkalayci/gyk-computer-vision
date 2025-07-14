@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tespit Sonuçları - Plaka Tanıma Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-camera"></i> Plaka Tanıma
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('about') }}">Hakkında</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1><i class="fas fa-check-circle"></i> Tespit Tamamlandı</h1>
+            <p>Plaka tanıma işlemi başarıyla gerçekleştirildi</p>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <div class="container">
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ detections }}</span>
+                <span class="stat-label">Tespit Edilen Plaka</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number"><i class="fas fa-clock"></i></span>
+                <span class="stat-label">Hızlı İşlem</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number"><i class="fas fa-shield-check"></i></span>
+                <span class="stat-label">Güvenli</span>
+            </div>
+        </div>
+
+        <!-- Image Comparison -->
+        <div class="card">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">
+                <i class="fas fa-images"></i> Karşılaştırma Sonuçları
+            </h2>
+            
+            <div class="image-comparison">
+                <div class="image-container">
+                    <h3><i class="fas fa-image"></i> Orijinal Resim</h3>
+                    <img src="{{ url_for('static', filename=original_image) }}" 
+                         alt="Orijinal Resim" 
+                         class="result-image"
+                         onclick="openModal(this.src)">
+                    <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
+                        Yüklenen orijinal resim
+                    </p>
+                </div>
+                
+                <div class="image-container">
+                    <h3><i class="fas fa-search-plus"></i> Tespit Sonucu</h3>
+                    <img src="{{ url_for('static', filename=result_image) }}" 
+                         alt="Tespit Sonucu" 
+                         class="result-image"
+                         onclick="openModal(this.src)">
+                    <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
+                        Plakalar işaretli hali
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('index') }}" class="btn">
+                    <i class="fas fa-plus"></i> Yeni Analiz
+                </a>
+                <button onclick="downloadResult()" class="btn" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">
+                    <i class="fas fa-download"></i> Sonucu İndir
+                </button>
+                <button onclick="shareResult()" class="btn" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+                    <i class="fas fa-share"></i> Paylaş
+                </button>
+            </div>
+        </div>
+
+        <!-- Analysis Details -->
+        <div class="card">
+            <h3><i class="fas fa-chart-bar"></i> Analiz Detayları</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye" style="color: #e74c3c;"></i>
+                    </div>
+                    <h4>Tespit Doğruluğu</h4>
+                    <p>Yüksek güvenilirlik oranı ile plaka tespiti gerçekleştirildi.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group" style="color: #9b59b6;"></i>
+                    </div>
+                    <h4>Derin Öğrenme</h4>
+                    <p>En güncel yapay zeka algoritmaları kullanılarak analiz edildi.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-stopwatch" style="color: #f39c12;"></i>
+                    </div>
+                    <h4>Hızlı Sonuç</h4>
+                    <p>Saniyeler içinde tamamlanan profesyonel analiz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for image zoom -->
+    <div id="imageModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; cursor: pointer;" onclick="closeModal()">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 90%; max-height: 90%;">
+            <img id="modalImage" style="width: 100%; height: auto; border-radius: 10px;">
+        </div>
+        <div style="position: absolute; top: 20px; right: 30px; color: white; font-size: 2rem; cursor: pointer;" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function downloadResult() {
+            const link = document.createElement('a');
+            link.href = "{{ url_for('static', filename=result_image) }}";
+            link.download = 'plaka-tespit-sonucu.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show success message
+            showNotification('Sonuç başarıyla indirildi!', 'success');
+        }
+
+        function shareResult() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Plaka Tespit Sonucu',
+                    text: 'Yapay zeka ile plaka tespit sonucum.',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    showNotification('Link panoya kopyalandı!', 'success');
+                });
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'error'}`;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation-triangle'}"></i> ${message}`;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.zIndex = '10001';
+            notification.style.minWidth = '300px';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Animation on load
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.card, .stat-item');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    requestAnimationFrame(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    });
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html> 

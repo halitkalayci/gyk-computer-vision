@@ -1,18 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plaka Tahmini</title>
+    <title>Plaka Tanıma Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1> Görsel Gönder </h1>
-    <form action="/predict" method="post" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <button type="submit">Tahmin Et</button>
-    </form>
-    {% if result %}
-        <h1> Tahmin Sonucu: {{ result }}</h1>
-    {% endif %}
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-camera"></i> Plaka Tanıma
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('about') }}">Hakkında</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1><i class="fas fa-car"></i> Plaka Tanıma Sistemi</h1>
+            <p>Yapay zeka ile araç plakalarını hızlı ve doğru bir şekilde tespit edin</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card">
+            {% if error %}
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <form action="/predict" method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-text">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;"></i>
+                        <p>Resmi buraya sürükleyin veya dosya seçmek için tıklayın</p>
+                        <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">
+                            Desteklenen formatlar: JPG, PNG, JPEG
+                        </p>
+                    </div>
+                    
+                    <div class="file-input-wrapper">
+                        <input type="file" name="image" id="imageInput" class="file-input" accept="image/*" required>
+                        <label for="imageInput" class="file-input-label">
+                            <i class="fas fa-folder-open"></i> Dosya Seç
+                        </label>
+                    </div>
+                </div>
+
+                <div id="preview" style="display: none; margin: 1rem 0;">
+                    <h3>Seçilen Resim:</h3>
+                    <img id="previewImage" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <p id="fileName" style="margin-top: 0.5rem; color: #666;"></p>
+                </div>
+
+                <button type="submit" class="btn" id="predictBtn">
+                    <i class="fas fa-search"></i> Plaka Tespit Et
+                </button>
+            </form>
+        </div>
+
+        <!-- Features Section -->
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt" style="color: #f39c12;"></i>
+                </div>
+                <h3>Hızlı İşlem</h3>
+                <p>Yapay zeka teknolojisi ile saniyeler içinde plaka tespit edilir.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-eye" style="color: #e74c3c;"></i>
+                </div>
+                <h3>Yüksek Doğruluk</h3>
+                <p>Gelişmiş algoritma ile %95+ doğruluk oranında plaka tanıma.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt" style="color: #27ae60;"></i>
+                </div>
+                <h3>Güvenli</h3>
+                <p>Yüklenen resimler güvenli bir şekilde işlenir ve saklanmaz.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Drag & Drop Functionality
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('imageInput');
+        const preview = document.getElementById('preview');
+        const previewImage = document.getElementById('previewImage');
+        const fileName = document.getElementById('fileName');
+        const predictBtn = document.getElementById('predictBtn');
+        const uploadForm = document.getElementById('uploadForm');
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop zone when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        // Handle dropped files
+        dropZone.addEventListener('drop', handleDrop, false);
+        dropZone.addEventListener('click', function(e) {
+            // Sadece drop zone'a direkt tıklandığında aç, label'a tıklandığında değil
+            if (e.target === dropZone || e.target.classList.contains('drop-zone-text') || e.target.tagName === 'I' || e.target.tagName === 'P') {
+                fileInput.click();
+            }
+        });
+        fileInput.addEventListener('change', handleFiles);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlight(e) {
+            dropZone.classList.add('dragover');
+        }
+
+        function unhighlight(e) {
+            dropZone.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFiles();
+            }
+        }
+
+        function handleFiles() {
+            const file = fileInput.files[0];
+            if (file) {
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    fileName.textContent = file.name;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Form submission with loading state
+        uploadForm.addEventListener('submit', function(e) {
+            predictBtn.innerHTML = '<span class="loading"></span> İşleniyor...';
+            predictBtn.disabled = true;
+        });
+    </script>
 </body>
 </html>

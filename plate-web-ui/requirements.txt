@@ -1,3 +1,4 @@
-flask
-tensorflow
-pillow
+flask>=2.0.0
+tensorflow>=2.8.0
+pillow>=9.0.0
+numpy>=1.21.0

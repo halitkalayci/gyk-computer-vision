@@ -1,0 +1,342 @@
+/* Modern CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ana Body Stilleri */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #667eea;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #667eea;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Card Components */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    margin: 2rem 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Upload Form */
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.file-input {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-input-label {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.file-input-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Results Section */
+.results {
+    margin-top: 3rem;
+}
+
+.image-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.image-container h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.result-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.result-image:hover {
+    transform: scale(1.02);
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+    display: block;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Error/Success Messages */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    font-weight: 500;
+}
+
+.alert-error {
+    background: rgba(255, 99, 99, 0.1);
+    color: #e74c3c;
+    border: 1px solid rgba(255, 99, 99, 0.3);
+}
+
+.alert-success {
+    background: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .image-comparison {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* About Page Styles */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+/* File Drop Zone */
+.drop-zone {
+    border: 2px dashed #667eea;
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.drop-zone:hover,
+.drop-zone.dragover {
+    border-color: #764ba2;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.drop-zone-text {
+    color: #667eea;
+    font-size: 1.1rem;
+    font-weight: 500;
+} 
