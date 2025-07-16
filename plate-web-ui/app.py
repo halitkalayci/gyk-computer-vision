@@ -173,3 +173,4 @@ if __name__ == "__main__":
 
 # Bireysel ödev ->
 # Bu websitesini yolov8 transfer learning ile eğittiğimiz model üzerinden kullanılacak biçime getirip UI/UX istediğiniz gibi düzenleyin.
+# Websitesinde varsa gördüğünüz performans problemlerini gideriniz.
