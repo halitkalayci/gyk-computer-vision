@@ -37,4 +37,25 @@ test_ds = test_ds.batch(BATCH_SIZE).prefetch(AUTOTUNE)
 
 # BaseModel tanımla
 # Kendi modelimizi tanımla
-# 19:35
+base_model = tf.keras.applications.MobileNetV2(
+    input_shape=(IMG_SIZE, IMG_SIZE, 3),
+    include_top=False,
+    weights='imagenet',
+)
+base_model.trainable = False # BaseModel'in trainable özelliğini False yapıyoruz. -> Freeze
+
+model = tf.keras.Sequential([
+    base_model,
+    tf.keras.layers.GlobalAveragePooling2D(), #Çıktıyı flatten edicem.
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.3),
+    tf.keras.layers.Dense(10, activation='softmax')
+])
+
+model.summary()
+
+model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+
+model.fit(train_ds, epochs=5, validation_data=test_ds)
+
+model.save("multi_classification_model.h5")
