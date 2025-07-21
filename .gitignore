@@ -7,3 +7,7 @@ plate_detection_cnn.keras
 plate_detection_cnn2.weights.h5
 plate_detection_cnn.weights.h5
 plate_model.tflite
+multi-classification/my-project1
+multi-classification/my-project1/*
+*/my-project1/*
+*/my-project1
