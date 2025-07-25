@@ -11,3 +11,5 @@ multi-classification/my-project1
 multi-classification/my-project1/*
 */my-project1/*
 */my-project1
+*/gan/*
+gan/*
