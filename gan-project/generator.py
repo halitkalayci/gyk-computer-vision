@@ -1,6 +1,6 @@
-from torch import nn
+from torch import nn # neural network
 
-class Generator(nn.Module):
+class Generator(nn.Module): #Kalıtım
     def __init__(self):
         super().__init__() #Pytorch base NN'ü kendi kodlarını çalıştır.
         self.net = nn.Sequential(
