@@ -16,14 +16,22 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Generator-Discriminator
 
-
+import discriminator
+from torch import nn, optim
 
 G = generator.Generator().to(device)
+D = discriminator.Discriminator().to(device)
 
-G.eval() # Modeli inference moduna al. -> Üretim moduna.
+# Tensorflowdan farklı olarak: loss fonk. ve optimizerları kendimiz tanımlarız.
+
+# Binary CrossEntropy
+loss_fn = nn.BCELoss()
+
+optim_G = optim.Adam(G.parameters, lr=0.0002)
+optim_D = optim.Adam(D.parameters, lr=0.0002)
+
+#
 
 #16 farklı hayali gürültü vektörü oluştur.
 noise = torch.randn(16, 100).to(device)
 
-
-# Discriminator -> Generatorün oluşturduğu yapıları eleştirmek.
