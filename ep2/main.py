@@ -41,5 +41,3 @@ cv2.destroyAllWindows()
 fatura_text = pytesseract.image_to_string(threshold, config=r'--psm 6', lang='tur')
 
 print(fatura_text)
-
-# 20:30

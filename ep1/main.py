@@ -8,6 +8,7 @@ import numpy as np
 img = cv2.imread('kedi.jpg')
 
 height, width = img.shape[:2]
+print(height, width)
 
 # Resize
 resized_img = cv2.resize(img, (width // 2, height // 2)) # (100,100) => width, height

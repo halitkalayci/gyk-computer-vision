@@ -1,0 +1,94 @@
+import cv2
+import numpy as np
+
+img = cv2.imread('kedi.jpg')
+
+print(type(img))
+print(img.shape)
+print(img)
+
+# Image Pre-Processing 
+height, width = img.shape[:2]
+
+# Resize
+resized_img = cv2.resize(img, (width // 2, height // 2)) # (100,100) => width, height
+# Neden kullanırız? -> Modelin daha hızlı çalışması için.
+# Veri setimizi standardize etmek için.
+
+# Rotate (Döndürme)
+center = (width // 2, height // 2) ## o anki yükseklik ve genişlik ortası.
+rotation_matrix = cv2.getRotationMatrix2D(center, 90, 1.0)
+rotated_img = cv2.warpAffine(img, rotation_matrix, (width, height))
+
+# Flip (Yansıma)
+flipped_img = cv2.flip(img, 1) # 1=> Yatay yansıma, 0=>Dikey Yansıma, -1 => Hem yatay hem de dikey yansıma
+
+# Blur (Bulanıklık) => 
+blurred_img = cv2.GaussianBlur(img, (15,15), 0)
+
+# Histogram Eşitleme - (Kontrastı artırır) Görüntülerdeki netliği artırmak. - Grayscale için kullanılır.
+grayscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+equalized_img = cv2.equalizeHist(grayscale)
+
+print(grayscale.shape)
+
+# Thresholding (Eşikleme) =>  Nesne-Arka plan ayrımı için kullanılır.
+# Gürültü Temizleme
+_, thresholded_img = cv2.threshold(grayscale, 127, 255, cv2.THRESH_BINARY) # 127 => Eşik değeri, 255 => Maksimum değer, cv2.THRESH_BINARY => Binary eşikleme
+
+
+#(255,255,255) -> 3 Kanal
+#0-255 -> Tek kanal (Grayscale)
+cv2.imshow('Kedi - img', img)
+#cv2.imshow('Kedi - resized_img', resized_img)
+#cv2.imshow('Kedi - rotated_img', rotated_img)
+#cv2.imshow('Kedi - flipped_img', flipped_img)
+#cv2.imshow('Kedi - blurred_img', blurred_img)
+#cv2.imshow('Kedi - equalized_img', equalized_img)
+#cv2.imshow('Kedi - grayscale', grayscale)
+cv2.imshow('Kedi - thresholded_img', thresholded_img)
+
+
+# Kontur noktaları nasıl belirlensin?
+# Method parametresi = cv2.CHAIN_APPROX_SIMPLE, cv2.CHAIN_APPROX_NONE, cv2.CHAIN_APPROX_TC89_KCOS, cv2.CHAIN_APPROX_TC89_L1
+# Simple => Kontur noktalarını en az sayıda nokta ile temsil etmeye çalışır. (en çok kullanılır.)
+# None => Tüm noktaları alır. (Çok yer kaplar.)
+# TC89_KCOS, L1 => Daha gelişmiş Douglas-Peucker algoritmaları.
+contours, _ = cv2.findContours(thresholded_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+
+print(f"Kontur sayısı: {len(contours)}")
+#print(f"Konturler: {contours}")
+
+contour_img = img.copy()
+# -1 => Tüm konturları çiz., 0-1-2-3 vb => Belirtilen kontur numarasını (index) çiz.
+# 0,0,255 BGR => Kırmızı renk
+# 2 => Çizgi kalınlığı
+cv2.drawContours(contour_img, contours, -1, (0,0,255), 2)
+cv2.imshow('Kedi - Contours', contour_img)
+
+
+# Morfolojik işlemler ve segmentasyon.
+# Morfolojik işlemler => Görüntü üzerinde matematiksel işlemler yaparak görüntüyü daha iyi hale getirir.
+# Erosion ve Dilation => Aşındırma ve Genişletme
+# Erosion => Beyaz bölgeleri küçültür, gürültüyü temizler.
+# Dilation => Beyaz bölgeleri büyütür, boşlukları doldurur. 
+kernel = np.ones((3,3), np.uint8)
+
+erosion = cv2.erode(thresholded_img, kernel, iterations=1)
+
+dilation = cv2.dilate(thresholded_img, kernel, iterations=1)
+
+
+# Opening => Erosion sonrası dilation işlemi. (Kağıttaki leke örneği => Küçük noktaları temizler, yazıyı bozmadan gürültüyü azaltır.)
+opening = cv2.morphologyEx(thresholded_img, cv2.MORPH_OPEN, kernel)
+
+# Closing => Dilation sonrası erosion işlemi. (Kağıttaki leke örneği => Küçük noktaları temizler, yazıyı bozmadan gürültüyü azaltır.)
+closing = cv2.morphologyEx(thresholded_img, cv2.MORPH_CLOSE, kernel)
+
+cv2.imshow('Kedi - Opening', opening)
+cv2.imshow('Kedi - Closing', closing)
+
+# Kapanmaması için
+cv2.waitKey(0)
+cv2.destroyAllWindows()

@@ -51,6 +51,8 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dropout(0.3),
     tf.keras.layers.Dense(10, activation='softmax')
 ])
+# Fine-Tuning - Transfer Learning
+
 
 model.summary()
 
@@ -59,3 +61,12 @@ model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=
 model.fit(train_ds, epochs=5, validation_data=test_ds)
 
 model.save("multi_classification_model.h5")
+
+
+# Pair Projesi ->
+# The Oxford-IIIT Pet Dataset ile beraber transfer learning ile kendi modelimiz geliştirelim.
+# Bu modeli production-ready hale getirelim.
+# Bir web üzerinde kullanıma sunalım -> Resim yükleme alanı, yüklenen resim bir classa atandı ise o class ismi
+# atanmadı ise bulunamadı sayfası gösterilsin.
+
+# Modeli istediğiniz gibi seçebilirsiniz.
