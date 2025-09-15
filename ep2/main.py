@@ -12,7 +12,7 @@ image = cv2.imread('testocr.png')
 
 text = pytesseract.image_to_string(image, lang='eng')
 
-#print(text)
+print(text)
 
 print("****")
 
