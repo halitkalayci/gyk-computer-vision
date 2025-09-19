@@ -13,3 +13,6 @@ multi-classification/my-project1/*
 */my-project1
 */gan/*
 */gan
+*/data/**
+generated_fake_imgs/*
+gan-project/generated_fake_imgs/*

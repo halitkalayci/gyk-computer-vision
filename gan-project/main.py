@@ -34,7 +34,7 @@ optim_D = optim.Adam(D.parameters(), lr=0.0002)
 #16 farklı hayali gürültü vektörü oluştur.
 fixed_noise = torch.randn(16, 100).to(device)
 
-epochs = 50
+epochs = 350
 
 import torch
 from torchvision import utils
@@ -81,7 +81,11 @@ for epoch in range(epochs):
         optim_G.step()
     
     # Her epoch sonunda örnek çizimleri kaydet.
-    with torch.no_grad():
-        fake = G(fixed_noise)
-        save_images(fake, epoch)
+    if epoch % 10 == 0:
+        with torch.no_grad():
+            fake = G(fixed_noise)
+            save_images(fake, epoch)
     print(f"Epoch {epoch+1} D Loss: {D_loss.item()} G Loss: {G_loss.item()}")
+
+
+# Aynı programı farklı bi klasörde tamamen tensorflow ile yazalım.

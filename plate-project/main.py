@@ -1,8 +1,3 @@
-# Transfer Learning.
-
-
-# ....
-
 from ultralytics import YOLO
 
 
